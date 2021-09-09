@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="UTF=8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>All Products - RedStore</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+		<script src="7.js"></script>
+    </head>
+    <body ng-app="orderByDemo">
+	<script>
+	angular.module('orderByDemo', [])
+    .controller('orderByController', ['$scope', function($scope) {
+      $scope.items =
+          [{name:'Red Printed T-shirt', price:250, offer:50, oldprice:500,photo:'product-1.jpg',rate:3.5},
+           {name:'Nike Black Shoes', price:500, offer:50, oldprice:1000,photo:'product-2.jpg',rate:4.6},
+		   {name:'Black Paint', price:640, offer:20, oldprice:800,photo:'product-3.jpg',rate:1.9},
+		   {name:'Navy blue T-shirt', price:240, offer:40, oldprice:400,photo:'product-4.jpg',rate:2.8},
+		   {name:'White Shoes', price:750, offer:50, oldprice:1500,photo:'product-5.jpg',rate:3.2},
+		   {name:'Black T-shirt', price:630, offer:10, oldprice:700,photo:'product-6.jpg',rate:2.4},
+		   {name:'buy 3 pair of shocks', price:240, offer:20, oldprice:300,photo:'product-7.jpg',rate:3.9},
+		   {name:'Digital black Watch', price:1900, offer:5, oldprice:2000,photo:'product-8.jpg',rate:4.0},
+		   {name:'Digital Titan Watch', price:3500, offer:30, oldprice:5000,photo:'product-9.jpg',rate:4.4},
+		   {name:'Black-shoes for men', price:630, offer:20, oldprice:900,photo:'product-10.jpg',rate:3.5},
+		   {name:'Layasa sports shoes', price:374, offer:62, oldprice:999,photo:'product-11.jpg',rate:2.1},
+		   {name:'Black jeans for men', price:540, offer:10, oldprice:600,photo:'product-12.jpg',rate:4.6}];}])
+		   
+				
+   </script>
+
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <a href="index.html"><img src="images/logo.png" width="125px"></a>
+                </div>
+                <nav>
+				
+                    <ul id="MenuItems">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Product</a></li>
+                        <li><a href="">About</a></li>
+                        <li><a href="">Contact</a></li>
+                        <li><a href="account.html">Account</a></li>
+                    </ul>
+					
+                </nav>
+                <a href="cart.html"><img src="images/cart.png" width="30px" height="30px"></a>
+                <img src="images/menu.png" class="menu-icon" onclick="menutoggle()">
+            </div>
+        </div>
+		
+	
+        <div class="small-container">
+            <div class="row row-2">
+                <h2>All Products</h2>
+                <select ng-model="SortOrder">
+                    <option value="default">Default</option>
+                    <option value="+price">Short by price ascending</option>
+                    <option value="-price">Short by price decending</option>
+                    <option value="+name">Short by name ascending</option>
+                    <option value="-price">Short by name decending</option>
+					<option value="+offer">Short by offer ascending</option>
+                    <option value="-offer">Short by offer decending</option>
+					<option value="+rate">Short by rating ascending</option>
+                    <option value="-rate">Short by rating decending</option>
+                </select>
+            </div>
+           
+				<div ng-controller="orderByController">
+				<div class="row">
+					
+					
+					<div ng-repeat="item in items | orderBy:SortOrder">
+					
+						<img class="shop-item-image" src="images/{{item.photo}}">
+						<h4 class="shop-item-title">{{item.name}}</h4>
+						<div class="rating">
+							{{item.rate}}<i class="fa fa-star"></i>
+						</div>
+						<del>${{item.oldprice}}</del> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<font color="red">{{item.offer}}% Off</font><h4 class="shop-item-price">${{item.price}}.00</h4><img src="images/symbol-2.jpg" width="30" height="30">&nbsp&nbsp&nbsp <button class="btn btn-primary shop-item-button" id="btn5" >ADD TO CART</button></p>
+						
+					
+				</div>
+				</div>
+			</div>
+			
+			
+         
+        
+            <div class="page-btn">
+                <span>1</span>
+                <span>2</span>
+                <span>3</span>
+                <span>4</span>
+                <span>&#8594;</span>
+            </div>
+        </div>
+		</div>
+		
+		<section class="small-container cart-page">
+            <h2 class="section-header">CART</h2>
+            <div class="cart-row">
+                <span class="cart-item cart-header cart-column">ITEM</span>
+                <span class="cart-price cart-header cart-column">PRICE</span>
+                <span class="cart-quantity cart-header cart-column">QUANTITY</span>
+            </div>
+            <div class="cart-items">
+                <div class="cart-row">
+                    <div class="cart-item cart-column">
+                        <img class="cart-item-image" src="images/buy-1.jpg" width="100" height="100">
+                        <span class="cart-item-title">T-Shirt</span>
+                    </div>
+                    <span class="cart-price cart-column">$19.99</span>
+                    <div class="cart-quantity cart-column">
+                        <input class="cart-quantity-input" type="number" value="1">
+                        <button class="btn btn-danger" type="button">REMOVE</button>
+                    </div>
+                </div>
+			</div>
+	        <div class="cart-total">
+                <strong class="cart-total-title">Total</strong>
+                <span class="cart-total-price">$39.97</span>
+            </div>
+            <button class="btn btn-primary btn-purchase" type="button">Confirm Order</button>
+        </section>
+        
+        <!-------Footer-------->
+        <div class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="footer-col-1">
+                        <h3>Download Our App</h3>
+                        <p>Download App For Android and ios mobile phone.</p>
+                        <div class="app-logo">
+                            <img src="images/play-store.png">
+                            <img src="images/app-store.png">
+                        </div>
+                    </div>
+                    <div class="footer-col-2">
+                        <img src="images/logo-white.png">
+                        <p>Our Purpose Is To Sustainably Make the Pleasure and 
+                            Benifits of Sports Accessible to the many.
+                        </p>
+                    </div>
+                    <div class="footer-col-3">
+                        <h3>Useful Links</h3>
+                        <ul>
+                            <li>Coupons</li>
+                            <li>Blog Post</li>
+                            <li>Return Policy</li>
+                            <li>Join Affiliate</li>
+                        </ul>
+                    </div>
+                    <div class="footer-col-4">
+                        <h3>Useful Links</h3>
+                        <ul>
+                            <li>Facebook</li>
+                            <li>Twitter</li>
+                            <li>Instagram</li>
+                            <li>YouTube</li>
+                        </ul>
+                    </div>
+                </div>
+                <hr>
+                <p class="copyright">copyright 200-Red Store</p>
+            </div>
+        </div>
+
+
+
+        <!------Java Script------>
+        <script>
+            var MenuItems = document.getElementById("MenuItems");
+
+            MenuItems.style.maxHeight = "0px";
+
+            function menutoggle(){
+                if(MenuItems.style.maxHeight == "0px"){
+                    MenuItems.style.maxHeight = "200px";
+                }
+                else{
+                    MenuItems.style.maxHeight = "0px";
+                }
+            }
+        </script>
+    </body>
+</html>

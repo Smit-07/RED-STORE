@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF=8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cart - RedStore</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		
+    </head>
+    <body>
+	
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <a href="index.html"><img src="images/logo.png" width="125px"></a>
+                </div>
+                <nav>
+                    <ul id="MenuItems">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Product</a></li>
+                        <li><a href="">About</a></li>
+                        <li><a href="">Contact</a></li>
+                        <li><a href="account.html">Account</a></li>
+                    </ul>
+                </nav>
+                <a href="cart.html"><img src="images/cart.png" width="30px" height="30px"></a>
+                <img src="images/menu.png" class="menu-icon" onclick="menutoggle()">
+            </div>
+        </div>
+
+        <!----------account-page------------>
+
+        <div class="account-page">
+            <div class="container">
+                <div class="row">
+                    <div class="col-2">
+                        <img src="images/image1.png" width="100%">
+                    </div>
+                    <div class="col-2">
+                        <div class="form-container">
+                            <div class="form-btn">
+                                <span onclick="login()">Login</span>
+                                <span onclick="register()">Register</span>
+                                <hr id="indicator">
+                            </div>
+                            <form id="LoginForm">
+                                <input type="text" placeholder="Email" id="e2"><br>
+                                <input type="password" placeholder="Password" id="p2"><br>
+                                <button type="submit" class="btn" id="btn2">Login</button>
+								<script>
+								const find = (ev)=>{
+									ev.preventDefault();
+									
+									var array=localStorage.getItem("MyMovieList");
+									var movies2=JSON.parse(array);
+									
+									email2=document.getElementById('e2').value;
+									password2=document.getElementById('p2').value;
+									
+									var j=0;
+									if(email2.length===0 || password2.length===0)
+									{alert("All fields are required");
+									j=1;
+									}
+									for(i=0;i<movies2.length;i++)
+									{
+										if(email2==movies2[i][3] && password2==movies2[i][4] && j===0)
+										{
+											alert("you are login successfully\nWelcome to REDSTORE");
+											j=1;
+											d=[]
+											let data = [
+												movies2[i][0],movies2[i][1],movies2[i][2],movies2[i][3],movies2[i][4],
+											]
+											d.push(data);
+											
+
+											console.warn('added' , {d} );
+											
+											
+											let textContent = '\n' + JSON.stringify(d, '\t', 4);
+											console.log(JSON.stringify(d));
+
+											localStorage.setItem('user', JSON.stringify(d) );
+											location.replace("products.html")
+										}
+										
+										else if(email2!=movies2[i][3] && password2==movies2[i][4] && j===0)
+										{
+											alert("Your email id is wrong");
+											j=1;
+										}
+										
+										else if(email2==movies2[i][3] && password2!=movies2[i][4] && j===0)
+										{
+											alert("Your password is wrong");
+											j=1;
+										}
+									}
+									if(j===0)
+									{alert("You are not registered");}
+								}
+								document.addEventListener('DOMContentLoaded', ()=>{
+								document.getElementById('btn2').addEventListener('click', find);
+								});
+								</script>
+                                <a href="">Forgot password</a>
+                            </form>
+                            <form id="RegForm">
+                                <input type="text"  placeholder="Username" id="n"><br>
+                                <input type="email" placeholder="Email" id="e"><br>
+								<input type="phone"  placeholder="Mobile No" id="m">
+								<input type="address"  placeholder="Address" id="a">
+                                <input type="password" placeholder="Password" id="p">
+                                <button type="submit" class="btn" id="btn" />Submit</button>
+							
+							</form>	
+								<script>
+								let movies = [];
+			
+							// example {id:1592304983049, title: 'Deadpool', year: 2015}
+							const addMovie = (ev)=>{
+							
+								ev.preventDefault();  //to stop the form submitting
+								function allLetter(s)
+								{ 
+									var letters = /^[A-Za-z]+$/;
+									return s.match(letters);
+								}
+								function allnum(s)
+								{ 
+									var nums = /^[0-9]+$/;
+									return s.match(nums);
+								}
+								function isvalidemail(s)
+								{
+									var email = /^.+@gmail.com+$/;
+									return email.test(s);
+								}
+								function isvalidpassword(s)
+								{
+									var l=/[a-z]/;
+									var u=/[A-Z]/;
+									var d=/[0-9]/;
+									return !(!l.test(s)||!u.test(s)||!d.test(s)||s.length<8);
+								}
+								
+								name=document.getElementById('n').value
+								mobile=document.getElementById('m').value
+								address=document.getElementById('a').value
+								email=document.getElementById('e').value
+								password=document.getElementById('p').value
+								
+								let movie = [
+									name,mobile,address,email,password
+								]
+								if(name.length==0 || mobile.length==0 || address.length==0 || email.length==0)
+								{alert("All fields are required");}
+								
+								else if(!allLetter(name.trim()))
+								{
+									alert("Name must consists only of Alphabetic letters");
+								}
+								
+								else if(!allnum(mobile.trim()))
+								{
+									alert("Mobile no. must consists only of Digits");
+								}
+								
+								else if(!isvalidemail(email))
+								{
+									alert("Email Address must be of type abc......@gmail.com");
+								}
+								
+								else if(!isvalidpassword(password))
+								{
+									alert("Password must be a minimum of eight characters long consisting of a combination of uppercase letter, lowercase letter, and digits");
+								}
+								
+								else{
+								alert("you are registered successfully");
+								movies.push(movie);
+								document.forms[0].reset(); // to clear the form for the next entries
+								//document.querySelector('form').reset();
+
+								//for display purposes only
+								console.warn('added' , {movies} );
+								
+								
+								let textContent = '\n' + JSON.stringify(movies, '\t', 4);
+								console.log(JSON.stringify(movies));
+
+								//saving to localStorage
+								localStorage.setItem('MyMovieList', JSON.stringify(movies) );}
+							}
+							document.addEventListener('DOMContentLoaded', ()=>{
+							document.getElementById('btn').addEventListener('click', addMovie);
+							});
+
+								</script>
+							
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                            
+        
+        <!-------Footer-------->
+        <div class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="footer-col-1">
+                        <h3>Download Our App</h3>
+                        <p>Download App For Android and ios mobile phone.</p>
+                        <div class="app-logo">
+                            <img src="images/play-store.png">
+                            <img src="images/app-store.png">
+                        </div>
+                    </div>
+                    <div class="footer-col-2">
+                        <img src="images/logo-white.png">
+                        <p>Our Purpose Is To Sustainably Make the Pleasure and 
+                            Benifits of Sports Accessible to the many.
+                        </p>
+                    </div>
+                    <div class="footer-col-3">
+                        <h3>Useful Links</h3>
+                        <ul>
+                            <li>Coupons</li>
+                            <li>Blog Post</li>
+                            <li>Return Policy</li>
+                            <li>Join Affiliate</li>
+                        </ul>
+                    </div>
+                    <div class="footer-col-4">
+                        <h3>Useful Links</h3>
+                        <ul>
+                            <li>Facebook</li>
+                            <li>Twitter</li>
+                            <li>Instagram</li>
+                            <li>YouTube</li>
+                        </ul>
+                    </div>
+                </div>
+                <hr>
+                <p class="copyright">copyright 200-Red Store</p>
+            </div>
+        </div>
+
+
+
+        <!------Java Script------>
+        <script>
+            var MenuItems = document.getElementById("MenuItems");
+
+            MenuItems.style.maxHeight = "0px";
+
+            function menutoggle(){
+                if(MenuItems.style.maxHeight == "0px"){
+                    MenuItems.style.maxHeight = "200px";
+                }
+                else{
+                    MenuItems.style.maxHeight = "0px";
+                }
+            }
+        </script>
+        <script>
+                var LoginForm = document.getElementById("LoginForm");
+                var RegForm = document.getElementById("RegForm");
+                var indicator = document.getElementById("indicator");
+
+                function login(){
+                    RegForm.style.transform = "translateX(300px)"
+                    LoginForm.style.transform = "translateX(300px)"
+                    indicator.style.transform = "translateX(0px)"
+                }
+                function register(){
+                    RegForm.style.transform = "translateX(0px)"
+                    LoginForm.style.transform = "translateX(0px)"
+                    indicator.style.transform = "translateX(100px)"
+                }
+                
+        </script>
+    </body>
+</html>
